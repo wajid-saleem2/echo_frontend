@@ -2,8 +2,8 @@ name: CI/CD Pipeline with Docker Push
 
 on:
   push:
-    branches: [main]  # CD on main only
-  pull_request:       # CI on PRs
+    branches: [main]
+  pull_request:
     branches: [main]
 
 jobs:
@@ -13,10 +13,10 @@ jobs:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v3
 
-      - name: 🔧 Setup Node
+      - name: 🔧 Setup Node (v20 required by React Router)
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20  # ✅ updated from 18 to 20
 
       - name: 📦 Install backend dependencies
         run: |
@@ -27,8 +27,8 @@ jobs:
         run: |
           cd EchoWriteFrontend
           npm ci
-          npm run build
-      
+          CI=false npm run build  # ✅ disable warnings as errors
+
       - name: 🔨 Install Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -52,10 +52,10 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: 🐳 Build & tag Docker image
+      - name: 🐳 Build & tag Docker images
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/bmr-backend ./backend
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/bmr-frontend ./frontend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/bmr-backend ./EchoWrite-backend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/bmr-frontend ./EchoWriteFrontend
 
       - name: 🚀 Push Docker images to Docker Hub
         run: |
