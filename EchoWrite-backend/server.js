@@ -68,7 +68,7 @@ app.use(express.urlencoded({ extended: false })); // To accept form data
 
 const allowedOrigins = [
     'http://localhost:3000', 
-    'https://echowrite-theta.vercel.app' 
+    'https://echowrite-ai.vercel.app' 
 ];
 
 const corsOptions = {
