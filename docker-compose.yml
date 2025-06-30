@@ -1,8 +1,8 @@
 services:
 
-  EchoWrite-backend:
+  echowrite-backend:
     build: ./EchoWrite-backend
-    container_name: EchoWrite-backend
+    container_name: echowrite-backend
     ports:
       - "5000:5000"
     env_file:
@@ -11,10 +11,10 @@ services:
       - ./EchoWrite-backend:/app
     command: npm run dev
 
-  EchoWriteFrontend:
+  echowrite-frontend:
     build: ./EchoWriteFrontend
-    container_name: EchoWriteFrontend
+    container_name: echowrite-frontend
     ports:
       - "3000:80"
     depends_on:
-      - EchoWrite-backend
+      - echowrite-backend
