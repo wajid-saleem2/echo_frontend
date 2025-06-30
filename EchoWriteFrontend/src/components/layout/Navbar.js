@@ -158,6 +158,8 @@ const Navbar = () => {
                 <Link to="/dashboard" className="hover:text-gray-300 px-3 py-2 rounded-md">Dashboard</Link>
                 <Link to="/all-content" className="hover:text-gray-300 px-3 py-2 rounded-md">My Content</Link>
                 <Link to="/ai-tools" className="hover:text-gray-300 px-3 py-2 rounded-md">AI Tools</Link>
+                <Link to="/community-templates" className="hover:text-gray-300 px-3 py-2 rounded-md">AI Tools</Link>
+
                 <div className="relative">
                   <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="hover:text-gray-300 px-3 py-2 rounded-md">
                     {user.username} ✓
