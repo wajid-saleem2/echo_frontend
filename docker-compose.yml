@@ -1,0 +1,22 @@
+services:
+
+  EchoWrite-backend:
+    build: ./EchoWrite-backend
+    container_name: EchoWrite-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./EchoWrite-backend/.env
+    depends_on:
+      - mongodb
+    volumes:
+      - ./EchoWrite-backend:/app
+    command: npm run dev
+
+  EchoWriteFrontend:
+    build: ./EchoWriteFrontend
+    container_name: EchoWriteFrontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - EchoWrite-backend

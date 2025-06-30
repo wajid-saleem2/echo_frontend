@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /content/
+# Add sitemap later
+# Sitemap: https://yourdomain.com/sitemap.xml

@@ -1,0 +1,12 @@
+{
+  "name": "echowrite-ai",
+  "scripts": {
+    "install": "npm run install-all",
+    "install-all": "cd EchoWriteFrontend && npm install && cd ../EchoWrite-backend && npm install",
+    "start": "npm run start:all",
+    "start:all": "concurrently \"npm --prefix EchoWrite-backend  start\" \"npm --prefix EchoWriteFrontend start\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
