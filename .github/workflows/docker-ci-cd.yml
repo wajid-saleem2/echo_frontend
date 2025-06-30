@@ -54,10 +54,10 @@ jobs:
 
       - name: 🐳 Build & tag Docker images
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/bmr-backend ./EchoWrite-backend
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/bmr-frontend ./EchoWriteFrontend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/echowrite-backend ./EchoWrite-backend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/echowrite-frontend ./EchoWriteFrontend
 
       - name: 🚀 Push Docker images to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/bmr-backend
-          docker push ${{ secrets.DOCKER_USERNAME }}/bmr-frontend
+          docker push ${{ secrets.DOCKER_USERNAME }}/echowrite-backend
+          docker push ${{ secrets.DOCKER_USERNAME }}/echowrite-frontend
