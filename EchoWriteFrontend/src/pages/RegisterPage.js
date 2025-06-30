@@ -777,7 +777,7 @@ useEffect(() => {
     if (user && currentStep === 1) {
         console.log('User is logged in but still on step 1, this might be the issue');
     }
-}, [user]);
+}, [user, currentStep]);
 
     const handleStep2Submit = async (e) => {
         e.preventDefault();
