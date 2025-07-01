@@ -1,62 +1,3 @@
-// // frontend/src/pages/HomePage.js
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-// import { useAuth } from '../contexts/AuthContext';
-// import { Helmet } from 'react-helmet-async';
-
-// const HomePage = () => {
-//     const { user } = useAuth();
-//     return (
-//         <>
-//         <Helmet>
-//         <title>EchoWrite - AI Content Repurposing & Syndication</title>
-//         <meta name="description" content="Effortlessly repurpose your blog posts, videos, and podcasts into engaging content for Twitter, LinkedIn, email, and more with EchoWrite." />
-//       </Helmet>
-//         <div className="text-center">
-//             <h1 className="text-4xl font-bold mb-6">Welcome to EchoWrite!</h1>
-//             <p className="text-xl mb-8">
-//                 The smartest way to repurpose your content across all platforms.
-//             </p>
-//             {user ? (
-//                 <Link
-//                     to="/dashboard"
-//                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-lg"
-//                 >
-//                     Go to Dashboard
-//                 </Link>
-//             ) : (
-//                 <div className="space-x-4">
-//                     <Link
-//                         to="/login"
-//                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg"
-//                     >
-//                         Login
-//                     </Link>
-//                     <Link
-//                         to="/register"
-//                         className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg text-lg"
-//                     >
-//                         Register
-//                     </Link>
-//                 </div>
-//             )}
-//              <div className="mt-12 p-6 bg-white shadow-lg rounded-lg">
-//                 <h2 className="text-2xl font-semibold mb-4">How it Works</h2>
-//                 <ol className="list-decimal list-inside text-left space-y-2">
-//                     <li>Input your primary content (blog post, video script, etc.).</li>
-//                     <li>EchoWrite intelligently extracts key points and ideas.</li>
-//                     <li>Instantly generate drafts for Twitter, LinkedIn, emails, and more!</li>
-//                     <li>(Future) Enhance with AI, schedule, and syndicate.</li>
-//                 </ol>
-//             </div>
-//         </div>
-//         </>
-//     );
-// };
-
-// export default HomePage;
-
-// frontend/src/pages/HomePage.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -101,7 +42,12 @@ const HomePage = () => {
         <>
             <Helmet>
                 <title>EchoWrite - AI Content Repurposing & Generation Suite</title>
-                <meta name="description" content="EchoWrite: Transform your content with AI. Effortlessly repurpose articles, videos, and podcasts into engaging social media posts, emails, and more. Maximize reach, save time." />
+                <meta name="description" content="EchoWrite: Transform your content with AI. Effortlessly repurpose articles, videos, and podcasts into engaging social media posts, emails, and more. Maximize reach, save time. Generate SEO-optimized blogs, ads, and website content instantly using AI." />
+                {/* Open Graph */}
+                <meta property="og:title" content="EchoWrite AI Writer" />
+                <meta property="og:description" content="The best AI-powered content generation tool." />
+                <meta property="og:url" content="https://echowrite-ai.vercel.app/" />
+                <meta property="og:type" content="website" />
             </Helmet>
 
             <div className="bg-white dark:bg-slate-900 text-gray-800 dark:text-slate-200">
@@ -255,7 +201,7 @@ const HomePage = () => {
                             Join EchoWrite today and experience the future of content repurposing and generation. Save time, amplify your voice, and never let great content go to waste again.
                         </p>
                         {user ? (
-                             <Link
+                            <Link
                                 to="/dashboard"
                                 className="bg-yellow-400 hover:bg-yellow-500 text-indigo-700 font-bold py-4 px-10 rounded-lg text-lg shadow-lg transform transition-transform hover:scale-105"
                             >
