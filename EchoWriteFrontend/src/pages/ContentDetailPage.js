@@ -796,6 +796,19 @@ useEffect(() => {
          setShowUploadModal(false);
     }
 
+    useEffect(() => {
+    // Auto-set the AI provider based on which API key the user has configured
+    if (!repurposeAiProvider && authUser) {
+        if (authUser.hasGeminiApiKey) {
+            setRepurposeAiProvider('gemini');
+        } else if (authUser.hasOpenAiApiKey) {
+            setRepurposeAiProvider('openai');
+        } else if (authUser.hasPerplexityApiKey) {
+            setRepurposeAiProvider('perplexity');
+        }
+    }
+}, [authUser, repurposeAiProvider]);
+
     const fetchContentAndSnippets = useCallback(async () => {
         setLoading(true);
         setError('');
