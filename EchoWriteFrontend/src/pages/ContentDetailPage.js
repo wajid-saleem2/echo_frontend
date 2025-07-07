@@ -647,7 +647,7 @@ const ContentDetailPage = () => {
     // --- AI Modal State (Simplified for now, will expand) ---
     const [showAiActionModal, setShowAiActionModal] = useState(false);
     const [aiActionForSelected, setAiActionForSelected] = useState(''); // e.g., 'rewrite-style-tone'
-    const [aiProviderForSelected, setAiProviderForSelected] = useState('openai');
+    const [aiProviderForSelected, setAiProviderForSelected] = useState('');
     // ... (other AI options state: targetStyle, customStyle, etc.)
     const [targetStyleForModal, setTargetStyleForModal] = useState(''); // NEW STATE for style/tone input
     const [summarizeTypeForModal, setSummarizeTypeForModal] = useState('short');
