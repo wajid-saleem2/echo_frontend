@@ -1216,7 +1216,7 @@ useEffect(() => {
         let targetPlatformToSend = platformKey;
         let payload = { targetPlatform: targetPlatformToSend };
 
-        if (useAi) {
+        // if (useAi) {
             if (!repurposeAiProvider) {
                 alert("Please select an AI provider for AI-powered repurposing or configure an API key.");
                 setGenerating(false);
@@ -1236,7 +1236,7 @@ useEffect(() => {
 
             targetPlatformToSend = `${platformKey}_ai`; // Append _ai to signal AI processing
             payload = { targetPlatform: targetPlatformToSend, aiProvider: repurposeAiProvider };
-        }
+        // }
 
 
         try {
