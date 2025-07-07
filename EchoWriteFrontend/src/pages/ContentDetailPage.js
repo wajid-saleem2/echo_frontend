@@ -1216,27 +1216,27 @@ useEffect(() => {
         let targetPlatformToSend = platformKey;
         let payload = { targetPlatform: targetPlatformToSend };
 
-        // if (useAi) {
-            if (!repurposeAiProvider) {
+        if (useAi) {
+            if (!aiProviderForSelected) {
                 alert("Please select an AI provider for AI-powered repurposing or configure an API key.");
                 setGenerating(false);
                 return;
             }
             // Check if selected provider's key is configured (similar to SnippetCard)
             let keyIsConfigured = false;
-            if (repurposeAiProvider === 'openai' && authUser?.hasOpenAiApiKey) keyIsConfigured = true;
-            else if (repurposeAiProvider === 'gemini' && authUser?.hasGeminiApiKey) keyIsConfigured = true;
-            else if (repurposeAiProvider === 'perplexity' && authUser?.hasPerplexityApiKey) keyIsConfigured = true;
+            if (aiProviderForSelected === 'openai' && authUser?.hasOpenAiApiKey) keyIsConfigured = true;
+            else if (aiProviderForSelected === 'gemini' && authUser?.hasGeminiApiKey) keyIsConfigured = true;
+            else if (aiProviderForSelected === 'perplexity' && authUser?.hasPerplexityApiKey) keyIsConfigured = true;
 
             if (!keyIsConfigured) {
-                alert(`Your ${repurposeAiProvider} API key is not configured. Please add it in your profile.`);
+                alert(`Your ${aiProviderForSelected} API key is not configured. Please add it in your profile.`);
                 setGenerating(false);
                 return;
             }
 
             targetPlatformToSend = `${platformKey}_ai`; // Append _ai to signal AI processing
-            payload = { targetPlatform: targetPlatformToSend, aiProvider: repurposeAiProvider };
-        // }
+            payload = { targetPlatform: targetPlatformToSend, aiProvider: aiProviderForSelected };
+        }
 
 
         try {
@@ -1248,7 +1248,7 @@ useEffect(() => {
         } finally {
             setGenerating(false);
         }
-    }, [id, authUser, repurposeAiProvider]); // Added dependencies
+    }, [id, authUser, aiProviderForSelected]); // Added dependencies
 
     // Define repurpose options, now potentially with AI variants
     const repurposeOptions = [
