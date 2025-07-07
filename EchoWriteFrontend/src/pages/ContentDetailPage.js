@@ -647,7 +647,7 @@ const ContentDetailPage = () => {
     // --- AI Modal State (Simplified for now, will expand) ---
     const [showAiActionModal, setShowAiActionModal] = useState(false);
     const [aiActionForSelected, setAiActionForSelected] = useState(''); // e.g., 'rewrite-style-tone'
-    const [aiProviderForSelected, setAiProviderForSelected] = useState('');
+    const [aiProviderForSelected, setAiProviderForSelected] = useState('openai');
     // ... (other AI options state: targetStyle, customStyle, etc.)
     const [targetStyleForModal, setTargetStyleForModal] = useState(''); // NEW STATE for style/tone input
     const [summarizeTypeForModal, setSummarizeTypeForModal] = useState('short');
@@ -985,118 +985,6 @@ useEffect(() => {
         }
     };
 
-    // // Handler for AI modal submission (will call backend)
-    // const handleAiModalSubmit = async (modalOptions) => {
-    //     setAiModalLoading(true);
-    //     setAiModalError('');
-    //     setAiSuggestionsForSelected([]);
-
-    //     // ... (API key checks for aiProviderForSelected from authUser) ...
-    //     let keyIsConfigured = false;
-    //     if (aiProviderForSelected === 'openai' && authUser?.hasOpenAiApiKey) keyIsConfigured = true;
-    //     else if (aiProviderForSelected === 'gemini' && authUser?.hasGeminiApiKey) keyIsConfigured = true;
-    //     else if (aiProviderForSelected === 'perplexity' && authUser?.hasPerplexityApiKey) keyIsConfigured = true;
-
-    //     if (!keyIsConfigured) {
-    //         setAiModalError(`Your ${aiProviderForSelected.charAt(0).toUpperCase() + aiProviderForSelected.slice(1)} API key is not configured.`);
-    //         setAiModalLoading(false);
-    //         return;
-    //     }
-
-    //     // Calculate how much text is selected
-    // const selectionLengthInChars = selectedText.length;
-    // const selectionLengthInWords = selectedText.trim().split(/\s+/).length;
-    // const isLongSelection = selectionLengthInWords > 300; // ~1500+ characters
-    
-    // // Add feedback about length to the UI if selection is very long
-    // if (isLongSelection) {
-    //     setAiModalError(`Processing ${selectionLengthInWords} words. This may take a moment and results will be optimized for longer text.`);
-        
-    //     // Give UI time to update before heavy API call
-    //     await new Promise(resolve => setTimeout(resolve, 100));
-    // }
-
-    // // Add adaptive parameters based on text length
-    // const adaptedModalOptions = {...modalOptions};
-
-    // // Add specific optimizations based on action type
-    // if (aiActionForSelected === 'rewrite-style-tone') {
-    //     // Adjust variation count based on text length
-    //     if (selectionLengthInWords > 500) {
-    //         adaptedModalOptions.variationCount = 1;
-    //     } else if (selectionLengthInWords > 200) {
-    //         adaptedModalOptions.variationCount = 2;
-    //     } else {
-    //         adaptedModalOptions.variationCount = 3;
-    //     }
-    // } else if (aiActionForSelected === 'summarize') {
-    //     // Adjust summary length based on text length
-    //     if (selectionLengthInWords > 500) {
-    //         adaptedModalOptions.length = 'medium';
-    //     }
-    // } else if (aiActionForSelected === 'generate-headlines') {
-    //     // Adjust headline count based on text length
-    //     if (selectionLengthInWords > 300) {
-    //         adaptedModalOptions.count = 3;
-    //     } else {
-    //         adaptedModalOptions.count = 5;
-    //     }
-    // }
-
-    //     const payload = {
-    //         text: selectedText,
-    //         aiProvider: aiProviderForSelected,
-    //         action: aiActionForSelected,
-    //         options: modalOptions // e.g., { targetStyleOrTone: 'witty', referenceStyleText: '...' }
-    //     };
-    //     console.log("Frontend Payload to /ai/enhance-text:", JSON.stringify(payload, null, 2)); // Log this
-
-    //     try {
-    //         const response = await axios.post(`${API_URL}/ai/enhance-text`, payload);
-
-    //         // Clear the temporary error message about long text
-    //     if (isLongSelection) {
-    //         setAiModalError('');
-    //     }
-        
-    //         if (response.data.error) {
-    //             setAiModalError(response.data.error);
-    //         } else {
-    //              // Handle different response types
-    //         if (response.data.rewrittenText) {
-    //             // Special handling for "---VARIATION---" separator in rewritten text
-    //             if (response.data.rewrittenText.includes('---VARIATION---')) {
-    //                 // Split by variation separator and clean up
-    //                 const variations = response.data.rewrittenText
-    //                     .split('---VARIATION---')
-    //                     .map(text => text.trim())
-    //                     .filter(text => text.length > 0)
-    //                     .map(text => text.replace(/\*\*VARIATION\s*\d+:\*\*/gi, '').trim());
-    //                 setAiSuggestionsForSelected(variations);
-    //             } else {
-    //                 // Handle single rewritten text
-    //                 // setAiSuggestionsForSelected([response.data.rewrittenText]);
-    //                 setAiSuggestionsForSelected(
-    //                     response.data.rewrittenTexts.map(text =>
-    //                         text.replace(/\*\*VARIATION\s*\d+:\*\*/gi, '').trim()
-    //                     )
-    //                 );
-    //             }
-    //         } else if (response.data.rewrittenTexts && Array.isArray(response.data.rewrittenTexts)) {
-    //             setAiSuggestionsForSelected(response.data.rewrittenTexts);
-    //         } else if (Array.isArray(response.data) && response.data.length > 0 && typeof response.data[0] === 'string') { // For headlines
-    //             setAiSuggestionsForSelected(response.data);
-    //         } else if (response.data.summary) {
-    //             setAiSuggestionsForSelected([response.data.summary]);
-    //         }
-    //     }
-    //     } catch (err) {
-    //         setAiModalError(err.response?.data?.message || "AI request failed.");
-    //     } finally {
-    //         setAiModalLoading(false);
-    //     }
-    // };
-
     const handleAiModalSubmit = async (modalOptions) => {
         setAiModalLoading(true);
         setAiModalError('');
@@ -1209,46 +1097,56 @@ useEffect(() => {
         }
     }, [id, navigate]);
 
-    const handleGenerateSnippets = useCallback(async (platformKey, useAi = true) => { // Added useAi flag
-        setGenerating(true);
-        setError(''); // Use error for this section's errors
+    const handleGenerateSnippets = useCallback(async (platformKey, useAi = true) => {
+    setGenerating(true);
+    setError('');
 
-        let targetPlatformToSend = platformKey;
-        let payload = { targetPlatform: targetPlatformToSend };
+    let targetPlatformToSend = platformKey;
+    let payload = { targetPlatform: targetPlatformToSend };
 
-        if (useAi) {
-            if (!aiProviderForSelected) {
-                alert("Please select an AI provider for AI-powered repurposing or configure an API key.");
-                setGenerating(false);
-                return;
-            }
-            // Check if selected provider's key is configured (similar to SnippetCard)
-            let keyIsConfigured = false;
-            if (aiProviderForSelected === 'openai' && authUser?.hasOpenAiApiKey) keyIsConfigured = true;
-            else if (aiProviderForSelected === 'gemini' && authUser?.hasGeminiApiKey) keyIsConfigured = true;
-            else if (aiProviderForSelected === 'perplexity' && authUser?.hasPerplexityApiKey) keyIsConfigured = true;
+    if (useAi) {
+        // DEBUG: Add these console logs
+        console.log('repurposeAiProvider:', repurposeAiProvider);
+        console.log('authUser API keys:', {
+            hasOpenAiApiKey: authUser?.hasOpenAiApiKey,
+            hasGeminiApiKey: authUser?.hasGeminiApiKey,
+            hasPerplexityApiKey: authUser?.hasPerplexityApiKey
+        });
 
-            if (!keyIsConfigured) {
-                alert(`Your ${aiProviderForSelected} API key is not configured. Please add it in your profile.`);
-                setGenerating(false);
-                return;
-            }
-
-            targetPlatformToSend = `${platformKey}_ai`; // Append _ai to signal AI processing
-            payload = { targetPlatform: targetPlatformToSend, aiProvider: aiProviderForSelected };
-        }
-
-
-        try {
-            const response = await axios.post(`${API_URL}/repurpose/${id}/generate`, payload);
-            trackSnippetGenerated(targetPlatformToSend); // Track with the actual platform sent
-            setRepurposedSnippets(prev => [...prev, ...response.data].sort(/* ... */));
-        } catch (err) {
-            setError(err.response?.data?.message || `Failed to generate ${platformKey} snippets.`);
-        } finally {
+        if (!repurposeAiProvider) {
+            alert("Please select an AI provider for AI-powered repurposing or configure an API key.");
             setGenerating(false);
+            return;
         }
-    }, [id, authUser, aiProviderForSelected]); // Added dependencies
+        
+        // Check if selected provider's key is configured
+        let keyIsConfigured = false;
+        if (repurposeAiProvider === 'openai' && authUser?.hasOpenAiApiKey) keyIsConfigured = true;
+        else if (repurposeAiProvider === 'gemini' && authUser?.hasGeminiApiKey) keyIsConfigured = true;
+        else if (repurposeAiProvider === 'perplexity' && authUser?.hasPerplexityApiKey) keyIsConfigured = true;
+
+        console.log('keyIsConfigured:', keyIsConfigured); // DEBUG
+
+        if (!keyIsConfigured) {
+            alert(`Your ${repurposeAiProvider} API key is not configured. Please add it in your profile.`);
+            setGenerating(false);
+            return;
+        }
+
+        targetPlatformToSend = `${platformKey}_ai`;
+        payload = { targetPlatform: targetPlatformToSend, aiProvider: repurposeAiProvider };
+    }
+
+    try {
+        const response = await axios.post(`${API_URL}/repurpose/${id}/generate`, payload);
+        trackSnippetGenerated(targetPlatformToSend);
+        setRepurposedSnippets(prev => [...prev, ...response.data].sort(/* ... */));
+    } catch (err) {
+        setError(err.response?.data?.message || `Failed to generate ${platformKey} snippets.`);
+    } finally {
+        setGenerating(false);
+    }
+}, [id, authUser, repurposeAiProvider]);
 
     // Define repurpose options, now potentially with AI variants
     const repurposeOptions = [
