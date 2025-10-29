@@ -177,17 +177,23 @@ function AppContent() {
           </Routes>
         </main>
 
-        {/* ✅ Footer with Jenkins Test Button */}
+        {/* ✅ Footer with Jenkins & Haroon Buttons */}
         <footer className="bg-gray-800 text-white text-center p-4">
           © {new Date().getFullYear()} EchoWrite. All rights reserved.
 
-          {/* Jenkins Button */}
-          <div className="mt-4">
+          <div className="mt-4 space-x-4">
             <button 
               className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow-lg transition-all duration-200 hover:scale-105"
               onClick={() => alert('✅ Jenkins button clicked — deployment successful!')}
             >
               Jenkins
+            </button>
+
+            <button 
+              className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow-lg transition-all duration-200 hover:scale-105"
+              onClick={() => alert('✅ Haroon button clicked — feature verified!')}
+            >
+              Haroon
             </button>
           </div>
 
