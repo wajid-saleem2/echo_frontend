@@ -204,6 +204,17 @@ function AppContent() {
             <span className="text-gray-500">|</span>
             <Link to="/refund-policy" className="text-gray-400 hover:text-white hover:underline">Refund Policy</Link>
           </div>
+                umar
+            </button>
+          </div>
+
+          <div className="mt-2 space-x-4 text-xs">
+            <Link to="/terms-of-service" className="text-gray-400 hover:text-white hover:underline">Terms of Service</Link>
+            <span className="text-gray-500">|</span>
+            <Link to="/privacy-policy" className="text-gray-400 hover:text-white hover:underline">Privacy Policy</Link>
+            <span className="text-gray-500">|</span>
+            <Link to="/refund-policy" className="text-gray-400 hover:text-white hover:underline">Refund Policy</Link>
+          </div>
         </footer>
 
         <ToastContainer
@@ -232,3 +243,4 @@ function App() {
 }
 
 export default App;
+
