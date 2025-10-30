@@ -48,21 +48,21 @@ function AppContent() {
             <Route path="/oauth-callback" element={<OAuthCallbackPage />} />
 
             {/* Non-authenticated routes */}
-            <Route 
-              path="/login" 
+            <Route
+              path="/login"
               element={
                 <PublicRoute>
                   <LoginPage />
                 </PublicRoute>
-              } 
+              }
             />
-            <Route 
-              path="/register" 
+            <Route
+              path="/register"
               element={
                 <PublicRoute>
                   <RegisterPage />
                 </PublicRoute>
-              } 
+              }
             />
 
             {/* Routes without active subscription */}
@@ -132,88 +132,103 @@ function AppContent() {
                 </ProtectedRoute>
               }
             />
-            <Route 
-              path="/ai-tools" 
+            <Route
+              path="/ai-tools"
               element={
                 <ProtectedRoute>
                   <AiToolsPage />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/templates" 
+            <Route
+              path="/templates"
               element={
                 <ProtectedRoute>
                   <ManageTemplatesPage />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/community-templates" 
+            <Route
+              path="/community-templates"
               element={
                 <ProtectedRoute>
                   <CommunityTemplatesPage />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/admin" 
+            <Route
+              path="/admin"
               element={
                 <ProtectedRoute>
                   <AdminPanel />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/profile" 
+            <Route
+              path="/profile"
               element={
                 <ProtectedRoute>
                   <React.Suspense fallback={<p>Loading page...</p>}>
                     <ProfilePage />
                   </React.Suspense>
                 </ProtectedRoute>
-              } 
+              }
             />
           </Routes>
         </main>
 
-        {/* ✅ Footer with Jenkins & Haroon Buttons */}
+        {/* ✅ Footer with Jenkins, Haroon, and Umar Buttons */}
         <footer className="bg-gray-800 text-white text-center p-4">
           © {new Date().getFullYear()} EchoWrite. All rights reserved.
 
           <div className="mt-4 space-x-4">
-            <button 
+            <button
               className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow-lg transition-all duration-200 hover:scale-105"
-              onClick={() => alert('✅ Jenkins button clicked — deployment successful!')}
+              onClick={() =>
+                alert('✅ Jenkins button clicked — deployment successful!')
+              }
             >
               Jenkins
             </button>
 
-            <button 
+            <button
               className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded shadow-lg transition-all duration-200 hover:scale-105"
-              onClick={() => alert('✅ Haroon button clicked — feature verified!')}
+              onClick={() =>
+                alert('✅ Haroon button clicked — feature verified!')
+              }
             >
               Haroon
             </button>
-          </div>
 
-          <div className="mt-2 space-x-4 text-xs">
-            <Link to="/terms-of-service" className="text-gray-400 hover:text-white hover:underline">Terms of Service</Link>
-            <span className="text-gray-500">|</span>
-            <Link to="/privacy-policy" className="text-gray-400 hover:text-white hover:underline">Privacy Policy</Link>
-            <span className="text-gray-500">|</span>
-            <Link to="/refund-policy" className="text-gray-400 hover:text-white hover:underline">Refund Policy</Link>
-          </div>
-                umar
+            <button
+              className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded shadow-lg transition-all duration-200 hover:scale-105"
+              onClick={() => alert('✅ Umar button clicked — test complete!')}
+            >
+              Umar
             </button>
           </div>
 
           <div className="mt-2 space-x-4 text-xs">
-            <Link to="/terms-of-service" className="text-gray-400 hover:text-white hover:underline">Terms of Service</Link>
+            <Link
+              to="/terms-of-service"
+              className="text-gray-400 hover:text-white hover:underline"
+            >
+              Terms of Service
+            </Link>
             <span className="text-gray-500">|</span>
-            <Link to="/privacy-policy" className="text-gray-400 hover:text-white hover:underline">Privacy Policy</Link>
+            <Link
+              to="/privacy-policy"
+              className="text-gray-400 hover:text-white hover:underline"
+            >
+              Privacy Policy
+            </Link>
             <span className="text-gray-500">|</span>
-            <Link to="/refund-policy" className="text-gray-400 hover:text-white hover:underline">Refund Policy</Link>
+            <Link
+              to="/refund-policy"
+              className="text-gray-400 hover:text-white hover:underline"
+            >
+              Refund Policy
+            </Link>
           </div>
         </footer>
 
@@ -243,4 +258,3 @@ function App() {
 }
 
 export default App;
-
